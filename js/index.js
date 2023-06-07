@@ -132,19 +132,67 @@ function renderButtons() {
   // }
 }
 
+// function renderPrice() {
+//   // Iteration 4: change the HTML of `<aside class="panel price">`
+//   const listItems = document.querySelectorAll('.panel.price ul li');
+//   const price = document.querySelector('.panel.price strong');
+//   let total = 10;
+
+//   if (!state.pepperoni) {
+//     listItems[0].setAttribute('style', 'display: none');
+//   } else {
+//     listItems[0].setAttribute('style', 'display: list-item;');
+//     total += 1;
+//   }
+
+//   if (!state.mushrooms) {
+//     listItems[1].setAttribute('style', 'display: none');
+//   } else {
+//     listItems[1].setAttribute('style', 'display: list-item;');
+//     total += 1;
+//   }
+
+//   if (!state.greenPeppers) {
+//     listItems[2].setAttribute('style', 'display: none');
+//   } else {
+//     listItems[2].setAttribute('style', 'display: list-item;');
+//     total += 1;
+//   }
+
+//   if (!state.whiteSauce) {
+//     listItems[3].setAttribute('style', 'display: none');
+//   } else {
+//     listItems[3].setAttribute('style', 'display: list-item;');
+//     total += 3;
+//   }
+
+//   if (!state.glutenFreeCrust) {
+//     listItems[4].setAttribute('style', 'display: none');
+//   } else {
+//     listItems[4].setAttribute('style', 'display: list-item;');
+//     total += 5;
+//   }
+
+//   price.innerHTML = `$${total}`;
+// }
+
 function renderPrice() {
-  // Iteration 4: change the HTML of `<aside class="panel price">`
   const listItems = document.querySelectorAll('.panel.price ul li');
+  const price = document.querySelector('.panel.price strong');
+  let total = 10;
 
-  listItems.forEach((li) => {
-    const text = li.textContent.toLowerCase();
+  listItems.forEach((item, index) => {
+    const priceValues = [1, 1, 1, 3, 5]; // Correspond aux valeurs des prix respectifs
+    const display = state[Object.keys(state)[index]];
 
-    Object.entries(state).forEach(([key, value]) => {
-      if (text.includes(key.toLowerCase())) {
-        li.style.display = value ? 'list-item' : 'none';
-      }
-    });
+    item.style.display = display ? 'list-item' : 'none';
+
+    if (display) {
+      total += priceValues[index];
+    }
   });
+
+  price.innerHTML = `$${total}`;
 }
 
 renderEverything();
